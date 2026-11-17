@@ -582,10 +582,10 @@ def gambar_tabel_skor(c, y_top, kategori, n_kode):
 
     jumlah_spesifikasi = len(kelompok)
     rata_per_kode = [
-        total / len(pilihan) if pilihan else 0
-        for total, pilihan in zip(total_per_kode, pilihan_per_kode)
+        total / jumlah_spesifikasi if jumlah_spesifikasi else 0
+        for total in total_per_kode
     ]
-    
+
     # Gambar isi tabel
     y = y_top - tinggi_header
 
@@ -599,49 +599,18 @@ def gambar_tabel_skor(c, y_top, kategori, n_kode):
             teks_kiri(c, x0 + 4, y_next + 4, label, "Helvetica-Bold", 6.8)
         else:
             font_size = 6.2 if kategori == "Ikan" else 6.4
-
-            teks = label.strip()
-
-            if kategori == "Udang" and teks.startswith(
-                "• Utuh, kebeningan hilang"
-            ):
-                # Bullet tetap di posisi awal
-                teks_kiri(
-                    c, x0 + 13,
-                    y_next + tinggi_baris - 7,
-                    "•", size=font_size
-                )
-
-                posisi_teks = x0 + 23
-                teks = teks[1:].strip()
-            elif teks.startswith("•"):
-                teks_kiri(
-                    c, x0 + 13,
-                    y_next + tinggi_baris - 7,
-                    "•", size=font_size
-                )
-
-                posisi_teks = x0 + 26
-                teks = teks[1:].strip()
-            else:
-                posisi_teks = x0 + 13
-
-            lines = bungkus(
-                teks,
-                "Helvetica",
-                font_size,
-                x1 - posisi_teks - 5
-            )
+            lines = bungkus(label, "Helvetica", font_size, spec_w - 12)
 
             for j, line in enumerate(lines[:2]):
                 teks_kiri(
-                    c,
-                    posisi_teks,
-                    y_next + tinggi_baris - 6 - j * 7.5,
-                    line,
-                    size=font_size
+                    c, x0 + 13,
+                    y_next + tinggi_baris - 7 - j * 6.5,
+                    line, size=font_size
                 )
-    
+
+            if nilai:
+                teks_tengah(c, (x1+x2)/2, y_next+4, nilai, size=7)
+
         # Isi total dan rata-rata
         if label_lower.startswith(("total", "rata-rata")):
             for k in range(n_kode):
@@ -721,8 +690,8 @@ def hitung_kode_contoh(data):
 
         total += max(1, jumlah)
 
-    return total
-    
+    return total    
+
 def buat_pdf(kategori, data, nomor, tanggal):
     if not data:
         raise ValueError(f"Tidak ada media {kategori.lower()} yang dipilih.")
@@ -736,11 +705,9 @@ def buat_pdf(kategori, data, nomor, tanggal):
         if kategori == "Ikan"
         else "LEMBAR PENILAIAN UJI SKOR UDANG SEGAR"
     )
-
-    y = gambar_header(c, judul, nomor, tanggal, data, kategori)
-
-    n_kode = hitung_kode_contoh(data)
     
+    y = gambar_header(c, judul, nomor, tanggal, data, kategori)
+    n_kode = hitung_kode_contoh(data)
     gambar_tabel_skor(c, y, kategori, n_kode)
 
     c.showPage()
