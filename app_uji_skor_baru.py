@@ -582,10 +582,10 @@ def gambar_tabel_skor(c, y_top, kategori, n_kode):
 
     jumlah_spesifikasi = len(kelompok)
     rata_per_kode = [
-        total / jumlah_spesifikasi if jumlah_spesifikasi else 0
-        for total in total_per_kode
+        total / len(pilihan) if pilihan else 0
+        for total, pilihan in zip(total_per_kode, pilihan_per_kode)
     ]
-
+    
     # Gambar isi tabel
     y = y_top - tinggi_header
 
