@@ -706,9 +706,9 @@ def buat_pdf(kategori, data, nomor, tanggal):
         else "LEMBAR PENILAIAN UJI SKOR UDANG SEGAR"
     )
     
-    y = gambar_header(c, judul, nomor, tanggal, data, kategori)
-    n_kode = hitung_kode_contoh(data)
-    gambar_tabel_skor(c, y, kategori, n_kode)
+   y = gambar_header(c, judul, nomor, tanggal, data, kategori)
+   n_kode = hitung_kode_contoh(data)
+   gambar_tabel_skor(c, y, kategori, n_kode)
 
     c.showPage()
     c.save()
