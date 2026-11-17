@@ -601,25 +601,38 @@ def gambar_tabel_skor(c, y_top, kategori, n_kode):
             font_size = 6.2 if kategori == "Ikan" else 6.4
 
             teks = label.strip()
-            
-            if teks.startswith("•"):
-                teks = teks[1:].strip()
+
+            if kategori == "Udang" and teks.startswith(
+                "• Utuh, kebeningan hilang"
+            ):
+                # Bullet tetap di posisi awal
                 teks_kiri(
                     c, x0 + 13,
                     y_next + tinggi_baris - 7,
                     "•", size=font_size
                 )
+
+                posisi_teks = x0 + 23
+                teks = teks[1:].strip()
+            elif teks.startswith("•"):
+                teks_kiri(
+                    c, x0 + 13,
+                    y_next + tinggi_baris - 7,
+                    "•", size=font_size
+                )
+
                 posisi_teks = x0 + 26
+                teks = teks[1:].strip()
             else:
                 posisi_teks = x0 + 13
-            
+
             lines = bungkus(
                 teks,
                 "Helvetica",
                 font_size,
                 x1 - posisi_teks - 5
             )
-            
+
             for j, line in enumerate(lines[:2]):
                 teks_kiri(
                     c,
@@ -628,7 +641,7 @@ def gambar_tabel_skor(c, y_top, kategori, n_kode):
                     line,
                     size=font_size
                 )
-
+    
         # Isi total dan rata-rata
         if label_lower.startswith(("total", "rata-rata")):
             for k in range(n_kode):
