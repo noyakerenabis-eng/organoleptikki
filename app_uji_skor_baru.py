@@ -610,7 +610,7 @@ def gambar_tabel_skor(c, y_top, kategori, n_kode):
                     y_next + tinggi_baris - 7,
                     "•", size=font_size
                 )
-                posisi_teks = x0 + 23
+                posisi_teks = x0 + 25
             else:
                 posisi_teks = x0 + 13
             
@@ -625,7 +625,7 @@ def gambar_tabel_skor(c, y_top, kategori, n_kode):
                 teks_kiri(
                     c,
                     posisi_teks,
-                    y_next + tinggi_baris - 7 - j * 6.5,
+                    y_next + tinggi_baris - 7 - j * 6.9,
                     line,
                     size=font_size
                 )
