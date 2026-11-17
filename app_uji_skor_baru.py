@@ -600,15 +600,36 @@ def gambar_tabel_skor(c, y_top, kategori, n_kode):
             teks_kiri(c, x0 + 4, y_next + 4, label, "Helvetica-Bold", 6.8)
         else:
             font_size = 6.2 if kategori == "Ikan" else 6.4
-            lines = bungkus(label, "Helvetica", font_size, spec_w - 12)
 
-            for j, line in enumerate(lines[:2]):
+            teks = label.strip()
+            
+            if teks.startswith("•"):
+                teks = teks[1:].strip()
                 teks_kiri(
                     c, x0 + 13,
-                    y_next + tinggi_baris - 7 - j * 6.5,
-                    line, size=font_size
+                    y_next + tinggi_baris - 7,
+                    "•", size=font_size
                 )
-
+                posisi_teks = x0 + 23
+            else:
+                posisi_teks = x0 + 13
+            
+            lines = bungkus(
+                teks,
+                "Helvetica",
+                font_size,
+                x1 - posisi_teks - 5
+            )
+            
+            for j, line in enumerate(lines[:2]):
+                teks_kiri(
+                    c,
+                    posisi_teks,
+                    y_next + tinggi_baris - 7 - j * 6.5,
+                    line,
+                    size=font_size
+                )
+            
             if nilai:
                 teks_tengah(c, (x1+x2)/2, y_next+4, nilai, size=7)
 
