@@ -395,7 +395,7 @@ def gambar_header(c, judul, nomor, tanggal, data, kategori):
     
     # Logo di pojok kiri atas kop
     c.drawImage(
-        r"C:\Users\Hype G12\Downloads\automatic organoleptik\logo.png",
+        "logo.png",
         kiri + 5,
         H - 88,
         width=60,
@@ -672,7 +672,7 @@ def gambar_tabel_skor(c, y_top, kategori, n_kode):
 
     # Gambar tanda tangan
     c.drawImage(
-        r"C:\Users\Hype G12\Downloads\automatic organoleptik\ttd_norman.png",
+        "ttd.png",
         kiri+175, py-51,
         width=110,
         height=32,
