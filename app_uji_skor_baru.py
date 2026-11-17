@@ -678,7 +678,20 @@ def gambar_tabel_skor(c, y_top, kategori, n_kode):
         height=32,
         preserveAspectRatio=True,
         mask="auto")
+    
+def hitung_kode_contoh(data):
+    total = 0
 
+    for item in data:
+        try:
+            jumlah = int(float(item.get("jumlah", "1")))
+        except (ValueError, TypeError):
+            jumlah = 1
+
+        total += max(1, jumlah)
+
+    return total
+    
 def buat_pdf(kategori, data, nomor, tanggal):
     if not data:
         raise ValueError(f"Tidak ada media {kategori.lower()} yang dipilih.")
@@ -694,7 +707,10 @@ def buat_pdf(kategori, data, nomor, tanggal):
     )
 
     y = gambar_header(c, judul, nomor, tanggal, data, kategori)
-    gambar_tabel_skor(c, y, kategori, len(data))
+
+    n_kode = hitung_kode_contoh(data)
+    
+    gambar_tabel_skor(c, y, kategori, n_kode)
 
     c.showPage()
     c.save()
