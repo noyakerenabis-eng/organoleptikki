@@ -579,13 +579,14 @@ def gambar_tabel_skor(c, y_top, kategori, n_kode):
 
         total = sum(int(rows[i][1]) for i in pilihan)
         total_per_kode.append(total)
-
-    jumlah_spesifikasi = len(kelompok)
+    # Hitung hanya kelompok yang memiliki pilihan nilai
+    jumlah_spesifikasi = sum(1 for grup in kelompok if grup)
+    
     rata_per_kode = [
         total / jumlah_spesifikasi if jumlah_spesifikasi else 0
         for total in total_per_kode
     ]
-
+    
     # Gambar isi tabel
     y = y_top - tinggi_header
 
