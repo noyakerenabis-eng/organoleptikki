@@ -937,7 +937,7 @@ if st.session_state.get("preview_pdfs"):
             mime="application/zip",
             key="download_semua_zip"
         )
-    else:
+else:
     st.info("Unggah PDF permohonan PTK untuk memulai.")
 
     # Buat PDF gabungan jika tersedia Ikan dan Udang
@@ -946,5 +946,5 @@ if st.session_state.get("preview_pdfs"):
         and "Lembar_Uji_Skor_Udang.pdf" in keluaran
     ):
         st.session_state["hasil_pdf_gabungan"] = gabungkan_pdf(keluaran)
-else:
+    else:
         st.session_state["hasil_pdf_gabungan"] = None
