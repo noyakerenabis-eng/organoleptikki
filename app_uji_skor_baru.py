@@ -937,7 +937,7 @@ if st.session_state.get("preview_pdfs"):
             mime="application/zip",
             key="download_semua_zip"
         )
-else:
+    else:
     st.info("Unggah PDF permohonan PTK untuk memulai.")
 
     # Buat PDF gabungan jika tersedia Ikan dan Udang
