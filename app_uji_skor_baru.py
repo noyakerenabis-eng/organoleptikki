@@ -422,7 +422,7 @@ def gambar_header(c, judul, nomor, tanggal, data, kategori):
     teks_kiri(c, kiri+25, H-152, "2. Tgl. Diterima Contoh Uji", size=8)
     
     # Posisi titik dua dibuat sama
-    x_titik_dua = kiri + 190
+    x_titik_dua = kiri + 150
     teks_kiri(c, x_titik_dua, H-139, ":", size=8)
     teks_kiri(c, x_titik_dua, H-152, ":", size=8)
     
