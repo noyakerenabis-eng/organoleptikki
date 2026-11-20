@@ -743,6 +743,26 @@ def buat_pdf(kategori, data, nomor, tanggal):
     c.save()
     buffer.seek(0)
     return buffer.getvalue()
+    
+def gabungkan_pdf(daftar_pdf):
+    hasil = fitz.open()
+
+    # Urutan PDF: Ikan kemudian Udang
+    for jenis in ["Ikan", "Udang"]:
+        nama_file = f"Lembar_Uji_Skor_{jenis}.pdf"
+
+        if nama_file in daftar_pdf:
+            sumber = fitz.open(
+                stream=daftar_pdf[nama_file],
+                filetype="pdf"
+            )
+            hasil.insert_pdf(sumber)
+            sumber.close()
+
+    pdf_gabungan = hasil.tobytes()
+    hasil.close()
+
+    return pdf_gabungan
 # -------------------- UI --------------------
 
 uploaded=st.file_uploader("Upload PDF Permohonan PTK", type=["pdf"])
@@ -919,3 +939,12 @@ if st.session_state.get("preview_pdfs"):
         )
 else:
     st.info("Unggah PDF permohonan PTK untuk memulai.")
+
+    # Buat PDF gabungan jika tersedia Ikan dan Udang
+    if (
+        "Lembar_Uji_Skor_Ikan.pdf" in keluaran
+        and "Lembar_Uji_Skor_Udang.pdf" in keluaran
+    ):
+        st.session_state["hasil_pdf_gabungan"] = gabungkan_pdf(keluaran)
+else:
+        st.session_state["hasil_pdf_gabungan"] = None
