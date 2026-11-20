@@ -417,8 +417,15 @@ def gambar_header(c, judul, nomor, tanggal, data, kategori):
     c.line(kiri, H-97, kanan, H-97)
     teks_tengah(c, W/2, H-114, judul, "Helvetica-Bold", 11)
 
-    teks_kiri(c, kiri+25, H-139, ("1. Kode Contoh Uji /No. Aju PTK :" if kategori == "Ikan" else "1. Kode Aju :"), size=8)
-    teks_kiri(c, kiri+25, H-152, "2. Tgl. Diterima Contoh Uji :", size=8)
+    # Label dibuat terpisah agar tanda titik dua sejajar
+    teks_kiri(c, kiri+25, H-139, "1. Kode Contoh Uji /No. Aju PTK", size=8)
+    teks_kiri(c, kiri+25, H-152, "2. Tgl. Diterima Contoh Uji", size=8)
+    
+    # Posisi titik dua dibuat sama
+    x_titik_dua = kiri + 190
+    teks_kiri(c, x_titik_dua, H-139, ":", size=8)
+    teks_kiri(c, x_titik_dua, H-152, ":", size=8)
+    
     teks_kiri(c, kiri+175, H-139, nomor, size=7.5)
     teks_kiri(c, kiri+175, H-152, tanggal, size=8)
 
