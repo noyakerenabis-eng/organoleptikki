@@ -863,6 +863,15 @@ if uploaded:
                 if not keluaran:
                     st.error("Tidak ada PDF yang berhasil dibuat.")
                 else:
+                    # Buat PDF gabungan jika tersedia Ikan dan Udang
+                    if (
+                        "Lembar_Uji_Skor_Ikan.pdf" in keluaran
+                        and "Lembar_Uji_Skor_Udang.pdf" in keluaran
+                    ):
+                        st.session_state["hasil_pdf_gabungan"] = gabungkan_pdf(keluaran)
+                    else:
+                        st.session_state["hasil_pdf_gabungan"] = None
+                        
                     # SIMPAN SEMUA PDF UNTUK PREVIEW DAN DOWNLOAD
                     st.session_state["preview_pdfs"] = keluaran.copy()
 
@@ -924,7 +933,18 @@ if st.session_state.get("preview_pdfs"):
             mime="application/pdf",
             key=f"download_{nama_file}"
         )
-
+    # Download PDF gabungan Ikan dan Udang
+    if st.session_state.get("hasil_pdf_gabungan"):
+    
+        st.divider()
+    
+        st.download_button(
+            label="Download PDF Gabungan (Ikan + Udang)",
+            data=st.session_state["hasil_pdf_gabungan"],
+            file_name="Lembar_Uji_Skor_Ikan_dan_Udang.pdf",
+            mime="application/pdf",
+            key="download_pdf_gabungan"
+        )
     # Download semua PDF sekaligus jika ada Ikan dan Udang
     if st.session_state.get("hasil_zip"):
 
