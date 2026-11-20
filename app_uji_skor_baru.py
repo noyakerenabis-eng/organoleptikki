@@ -520,7 +520,7 @@ def gambar_tabel_skor(c, y_top, kategori, n_kode):
     rows = IKAN_ROWS if kategori == "Ikan" else UDANG_ROWS
     # Kolom spesifikasi dan nilai; sisa lebar dibagi sejumlah kode contoh
     spec_w = 310 if kategori == "Ikan" else 245
-    nilai_w = 55 if kategori == "Ikan" else 22
+    nilai_w = 41 if kategori == "Ikan" else 22
     x0, x1, x2 = kiri, kiri+spec_w, kiri+spec_w+nilai_w
     kode_w = (kanan-x2)/n_kode
     tinggi_header = 35 if kategori == "Ikan" else 33
